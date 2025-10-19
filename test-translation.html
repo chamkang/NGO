@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Translation Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-item { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+        .language-toggle { margin: 20px 0; }
+        button { padding: 10px 20px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Translation Test Page</h1>
+    
+    <div class="language-toggle">
+        <button onclick="translator.setLanguage('en')">English</button>
+        <button onclick="translator.setLanguage('fr')">Français</button>
+    </div>
+    
+    <div class="test-item">
+        <h3>Navigation Test:</h3>
+        <p data-translate="nav.home">Home</p>
+        <p data-translate="nav.about">About</p>
+        <p data-translate="nav.menu">Menu</p>
+    </div>
+    
+    <div class="test-item">
+        <h3>About Page Test:</h3>
+        <p data-translate="about.page_title">About Us</p>
+        <p data-translate="about.benevolence_title">Benevolence</p>
+        <p data-translate="about.solidarity_value_title">Solidarity</p>
+    </div>
+    
+    <div class="test-item">
+        <h3>Core Values Test:</h3>
+        <p data-translate="about.benevolence_section_title">Benevolence</p>
+        <p data-translate="about.solidarity_section_title">Solidarity</p>
+        <p data-translate="about.mutual_aid_section_title">Mutual Aid</p>
+    </div>
+    
+    <script src="js/translator.js"></script>
+    <script>
+        // Initialize translator
+        const translator = new Translator();
+        
+        // Add some debug info
+        setTimeout(() => {
+            console.log('Current language:', translator.currentLanguage);
+            console.log('Translations loaded:', Object.keys(translator.translations));
+            console.log('English keys:', translator.translations.en ? Object.keys(translator.translations.en).length : 'Not loaded');
+            console.log('French keys:', translator.translations.fr ? Object.keys(translator.translations.fr).length : 'Not loaded');
+        }, 1000);
+    </script>
+</body>
+</html>
