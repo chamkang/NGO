@@ -320,6 +320,29 @@ h3, .h3 {
 h4, .h4 {
   font-size: 1.5rem; }
 
+/* Core Values section headings enhancement */
+.ftco-section[style*="background-image"] .services-2 h4 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  margin-bottom: 15px; }
+
+/* Core Values section title enhancement */
+.ftco-section[style*="background-image"] h3.text-center {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+  margin-bottom: 2rem; }
+
+/* Core Values section text enhancement */
+.ftco-section[style*="background-image"] .services-2 p {
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+  font-size: 1.1rem;
+  line-height: 1.6; }
+
 h5, .h5 {
   font-size: 1.25rem; }
 
@@ -7467,7 +7490,7 @@ h1, h2, h3, h4, h5,
   letter-spacing: 1px;
   line-height: 1; }
   .navbar-brand .logo {
-    height: 40px;
+    height: 60px;
     width: auto;
     max-width: 200px;
     margin-right: 10px;
@@ -7547,7 +7570,8 @@ h1, h2, h3, h4, h5,
 
 .ftco-section[style*="background-image"] h2,
 .ftco-section[style*="background-image"] p,
-.ftco-section[style*="background-image"] h3 {
+.ftco-section[style*="background-image"] h3,
+.ftco-section[style*="background-image"] h4 {
   color: white;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 
@@ -7613,17 +7637,99 @@ h1, h2, h3, h4, h5,
     transform: scale(1.1) rotate(5deg); }
 
 .cause-entry {
-  transition: all 0.3s ease;
   border-radius: 15px;
   overflow: hidden;
-  position: relative; }
+  position: relative;
+  touch-action: auto; }
+  .cause-entry .img {
+    transition: none; }
+  .cause-entry.scrolling {
+    pointer-events: none; }
+
+/* Only enable hover effects on desktop with mouse */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .cause-entry {
+    transition: all 0.3s ease; }
   .cause-entry:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-  .cause-entry .img {
-    transition: all 0.4s ease; }
   .cause-entry:hover .img {
     transform: scale(1.05); }
+  .cause-entry .img {
+    transition: all 0.4s ease; }
+}
+
+/* Ensure carousel allows scrolling on mobile */
+.carousel-cause {
+  touch-action: auto;
+  -webkit-overflow-scrolling: touch; }
+
+/* Mobile optimizations - minimal approach */
+@media (max-width: 1023px) {
+  .carousel-cause * {
+    touch-action: auto !important;
+    transition: none !important;
+  }
+  
+  .cause-entry {
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+  
+  .cause-entry .img {
+    transform: none !important;
+    -webkit-transform: none !important;
+    transition: none !important;
+  }
+}
+
+.carousel-cause .owl-stage-outer {
+  touch-action: auto; }
+
+.carousel-cause .owl-stage {
+  touch-action: auto; }
+
+.carousel-cause .campaign-card {
+  touch-action: auto; }
+
+/* Enhanced navigation buttons for mobile */
+@media (max-width: 999px) {
+  .carousel-cause .owl-nav {
+    display: block !important;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+  
+  .carousel-cause .owl-nav button {
+    position: absolute !important;
+    background: rgba(40, 167, 69, 0.9) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 45px !important;
+    height: 45px !important;
+    font-size: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+  }
+  
+  .carousel-cause .owl-nav button.owl-prev {
+    left: 10px !important;
+  }
+  
+  .carousel-cause .owl-nav button.owl-next {
+    right: 10px !important;
+  }
+  
+  .carousel-cause .owl-nav button:hover {
+    background: rgba(40, 167, 69, 1) !important;
+  }
+}
 
 .staff {
   transition: all 0.3s ease;
@@ -8689,6 +8795,48 @@ textarea.form-control {
   background-repeat: no-repeat;
   background-position: center center; }
 
+/* Mobile image quality fix */
+@media (max-width: 1023px) {
+  .img, .cause-entry .img, .carousel-cause .img {
+    background-attachment: scroll !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    /* Remove any filters or effects that might cause blur */
+    filter: none !important;
+    -webkit-filter: none !important;
+    opacity: 1 !important;
+  }
+  
+  /* Force hardware acceleration off for images on mobile */
+  .cause-entry .img {
+    will-change: auto !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    /* Ensure crisp rendering */
+    image-rendering: auto !important;
+    image-rendering: -webkit-optimize-contrast !important;
+    -ms-interpolation-mode: bicubic !important;
+  }
+  
+  /* Additional mobile image optimizations */
+  .carousel-cause .cause-entry .img {
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-perspective: 1000px !important;
+    perspective: 1000px !important;
+  }
+  
+  /* Force refresh and ensure proper loading on mobile */
+  .cause-entry .img[style*="background-image"] {
+    background-blend-mode: normal !important;
+    mix-blend-mode: normal !important;
+  }
+}
+
 @media (max-width: 767.98px) {
   .img-about {
     height: 400px;
@@ -9061,7 +9209,11 @@ textarea.form-control {
 .block-21 .blog-img {
   display: block;
   height: 80px;
-  width: 80px; }
+  width: 80px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-radius: 4px; }
 
 .block-21 .text {
   width: calc(100% - 100px); }

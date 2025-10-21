@@ -878,38 +878,73 @@
         }
       };
 
-      // Handle campaign card clicks
-      $('.campaign-card').on('click', function() {
-        const title = $(this).data('title');
-        const image = $(this).data('image');
-        const description = $(this).data('description');
-        const progress = $(this).data('progress');
-        const raised = $(this).data('raised');
-        const lastDonation = $(this).data('last-donation');
+      // Handle campaign card clicks - improved for mobile
+      $('.campaign-card').on('click', function(e) {
+        // Prevent default link behavior
+        e.preventDefault();
+        e.stopPropagation();
         
-        // Get detailed information
-        const details = campaignDetails[title];
-        
-        // Populate modal
-        $('#modalTitle').text(title);
-        $('#modalImage').attr('src', image);
-        $('#modalDescription').text(description);
-        $('#modalProgress').css('width', progress + '%').attr('aria-valuenow', progress);
-        $('#modalFundRaised').text(raised);
-        $('#modalLastDonation').text(lastDonation);
-        
-        if (details) {
-          $('#modalFullDescription').html(details.fullDescription);
+        // Only open modal if this is actually a click (not during scrolling)
+        if (e.type === 'click' && !$(this).hasClass('scrolling')) {
+          const title = $(this).data('title');
+          const image = $(this).data('image');
+          const description = $(this).data('description');
+          const progress = $(this).data('progress');
+          const raised = $(this).data('raised');
+          const lastDonation = $(this).data('last-donation');
           
-          // Populate donation breakdown
-          const donationList = details.donationBreakdown.map(item => `<li>${item}</li>`).join('');
-          $('#modalDonationBreakdown').html(donationList);
+          // Get detailed information
+          const details = campaignDetails[title];
           
-          $('#modalTimeline').html(details.timeline);
+          // Populate modal
+          $('#modalTitle').text(title);
+          $('#modalImage').attr('src', image);
+          $('#modalDescription').text(description);
+          $('#modalProgress').css('width', progress + '%').attr('aria-valuenow', progress);
+          $('#modalFundRaised').text(raised);
+          $('#modalLastDonation').text(lastDonation);
+          
+          if (details) {
+            $('#modalFullDescription').html(details.fullDescription);
+            
+            // Populate donation breakdown
+            const donationList = details.donationBreakdown.map(item => `<li>${item}</li>`).join('');
+            $('#modalDonationBreakdown').html(donationList);
+            
+            $('#modalTimeline').html(details.timeline);
+          }
+          
+          // Show modal
+          $('#campaignModal').modal('show');
         }
         
-        // Show modal
-        $('#campaignModal').modal('show');
+        return false; // Additional prevention of default behavior
+      });
+
+      // Prevent anchor tags inside campaign cards from causing page refresh
+      $('.campaign-card a').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      });
+
+      // Minimal touch handling - only prevent accidental clicks during scrolling
+      let isScrolling = false;
+      
+      $(document).on('touchstart', function() {
+        isScrolling = false;
+      });
+      
+      $(document).on('touchmove', function() {
+        isScrolling = true;
+      });
+      
+      $('.campaign-card').on('touchend', function(e) {
+        if (isScrolling) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
       });
     });
   </script>

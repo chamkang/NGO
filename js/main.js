@@ -50,20 +50,40 @@
 			stagePadding:0,
 			nav: true,
 			navText: ['<span class="ion-ios-arrow-back">', '<span class="ion-ios-arrow-forward">'],
+			touchDrag: false,  // Disable touch drag to allow page scrolling
+			mouseDrag: true,   // Keep mouse drag for desktop
+			pullDrag: false,
+			freeDrag: false,
 			responsive:{
 				0:{
 					items: 1,
-					stagePadding: 0
+					stagePadding: 0,
+					touchDrag: false  // Ensure touch drag is disabled on mobile
 				},
 				600:{
 					items: 2,
-					stagePadding: 50
+					stagePadding: 50,
+					touchDrag: false
 				},
 				1000:{
 					items: 3,
-					stagePadding: 100
+					stagePadding: 100,
+					touchDrag: true   // Allow touch drag on larger screens
 				}
 			}
+		});
+
+		// Navigation buttons for mobile since touch drag is disabled
+		$('.carousel-cause .owl-nav button').css({
+			'display': 'block',
+			'opacity': '0.8',
+			'background': 'rgba(40, 167, 69, 0.8)',
+			'color': 'white',
+			'border': 'none',
+			'border-radius': '50%',
+			'width': '50px',
+			'height': '50px',
+			'font-size': '18px'
 		});
 
 	};
