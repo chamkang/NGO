@@ -7555,6 +7555,20 @@ h1, h2, h3, h4, h5,
   object-position: center;
   border-radius: 10px; }
 
+/* Mobile responsive fix for mission image */
+@media (max-width: 768px) {
+  .wrap-about .img-container {
+    height: auto;
+    min-height: 250px;
+  }
+  
+  .mission-image {
+    object-fit: contain;
+    height: auto;
+    max-height: 400px;
+  }
+}
+
 /* Call to Action Section with Background - Specific to background sections only */
 .ftco-section[style*="background-image"] .overlay {
   position: absolute;
